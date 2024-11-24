@@ -1,5 +1,4 @@
 # MedDiagnose
-Here's an engaging "About" section and a description of the models integrated into your medical diagnostic app, including the Google Gemini chatbot. I've added some graphic-related suggestions to enhance user interactivity and experience.
 
 ---
 
