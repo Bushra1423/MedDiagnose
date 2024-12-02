@@ -88,12 +88,4 @@ To enhance the experience, the app provides a **graphical interface** that allow
 3. **Step 3: Receive Diagnosis**
    - Get your diagnosis from the AI models with clear explanations and suggestions for next steps.
 
-*Graphics suggestion*: A step-by-step graphical tutorial (or animated GIF) illustrating the user journey from uploading an image to receiving a diagnosis.
 
----
-
-By integrating these advanced AI technologies into one platform, **MedDiagnose** offers a reliable and user-friendly way to analyze your health and make informed decisions. Whether you're seeking to understand your symptoms or need an expert opinion on a medical image, our app has you covered.
-
----
-
-This layout should give your app a professional and user-friendly feel, incorporating both informative text and interactive visuals.
