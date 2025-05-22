@@ -49,16 +49,59 @@ skin_cancer_categories = [
 brain_tumor_categories = ["glioma", "meningioma", "notumor", "pituitary"]
 pneumonia_categories = ["Normal", "Pneumonia"]
 
-# Placeholder models (replace with actual model loading logic)
-skin_cancer_model = "skin_cancer_model.h5"
-brain_tumor_model = "brain_tumor_detection_model.h5"
-pneumonia_model = "pneumonia_detection_model.h5"
+# Placeholder models 
+from tensorflow.keras.models import load_model
 
-# Helper function for predictions
-def predict_image(model, image, categories):
-    # Placeholder for actual model prediction logic
-    predictions = np.random.rand(len(categories))
-    predictions /= predictions.sum()  # Normalize to probabilities
+# Load actual models
+skin_cancer_model = load_model("skincancer.model.h5")
+brain_tumor_model = load_model("brain_tumor_detection_model.h5")
+pneumonia_model = load_model("pneumonia_detection_model.h5")
+
+
+# Helper function for Skin Cancer predictions (224x224)
+def predict_skin_cancer_image(model, image, categories):
+    input_shape = model.input_shape[1:3]  # Automatically get expected (height, width)
+    image = image.resize(input_shape)
+    image = image.convert("RGB")
+
+    image_array = np.array(image) / 255.0
+    image_array = np.expand_dims(image_array, axis=0)
+
+    st.write("Processed image shape:", image_array.shape)
+
+    predictions = model.predict(image_array)[0]
+    predicted_class = categories[np.argmax(predictions)]
+    prediction_dict = dict(zip(categories, predictions))
+    return predicted_class, prediction_dict
+
+    
+
+# Helper function for Brain Tumor predictions (150x150)
+def predict_brain_tumor_image(model, image, categories):
+    # Resize the image to 150x150 pixels
+    image = image.resize((150, 150))
+    image_array = np.array(image) / 255.0  # Normalize pixel values
+    image_array = np.expand_dims(image_array, axis=0)  # Add batch dimension
+    predictions = model.predict(image_array)[0]
+    predicted_class = categories[np.argmax(predictions)]
+    prediction_dict = dict(zip(categories, predictions))
+    return predicted_class, prediction_dict
+
+# Helper function for Pneumonia predictions (150x150)
+def predict_pneumonia_image(model, image, categories):
+    # Resize the image to the expected dimensions (150x150)
+    image = image.resize((150, 150))
+    # Convert the image to grayscale (1 channel)
+    image = image.convert("L")
+    # Convert to numpy array and normalize pixel values
+    image_array = np.array(image) / 255.0
+    # Expand dims so the shape becomes (150,150,1)
+    image_array = np.expand_dims(image_array, axis=-1)
+    # Add the batch dimension (1,150,150,1)
+    image_array = np.expand_dims(image_array, axis=0)
+    
+    # Run prediction on the processed image
+    predictions = model.predict(image_array)[0]
     predicted_class = categories[np.argmax(predictions)]
     prediction_dict = dict(zip(categories, predictions))
     return predicted_class, prediction_dict
@@ -126,68 +169,53 @@ def chatbot_page():
         else:
             st.warning("Please enter some symptoms to analyze.")
 
-# Skin Cancer Prediction
+# Skin Cancer Prediction Page
 def skin_cancer_page():
     st.header("Skin Cancer Prediction")
-    uploaded_file = st.file_uploader("Upload a Skin Lesion Image", type=["jpg", "png", "jpeg"])
-    if st.button("Analyze Skin Cancer"):
+    uploaded_file = st.file_uploader("Upload a Skin Lesion Image", type=["jpg", "png", "jpeg"], key="skin")
+    
+    if st.button("Analyze Skin Cancer", key="skin_predict"):
         if uploaded_file:
             with st.spinner("Running Skin Cancer Model..."):
-                image = Image.open(uploaded_file)
-                predicted_class, predictions = predict_image(skin_cancer_model, image, skin_cancer_categories)
+                image = Image.open(uploaded_file).convert("RGB")
+                predicted_class, predictions = predict_skin_cancer_image(skin_cancer_model, image, skin_cancer_categories)
                 st.write(f"**Predicted Class**: {predicted_class}")
-                st.write("**Prediction Probabilities:**")
-                fig, ax = plt.subplots(figsize=(10, 6))  # Set a reasonable figure size
-                sns.barplot(x=list(predictions.keys()), y=list(predictions.values()), ax=ax)
-                ax.set_title("Skin Cancer Prediction Probabilities", fontsize=16)
-                ax.set_ylabel("Probability", fontsize=12)
-                ax.set_xlabel("Skin Cancer Type", fontsize=12)
-
-                #Rotate x-axis labels for better readability
-                ax.set_xticklabels(ax.get_xticklabels(), rotation=45, ha='right')
-
-                #Display the plot in Streamlit
-                st.pyplot(fig)
-
-
+                #st.write("**Prediction Probabilities:**")
+                
         else:
             st.warning("Please upload an image for analysis.")
 
-# Brain Tumor Prediction
+# Brain Tumor Prediction Page
 def brain_tumor_page():
     st.header("Brain Tumor Prediction")
-    uploaded_file = st.file_uploader("Upload an MRI Image", type=["jpg", "png", "jpeg"])
-    if st.button("Analyze Brain Tumor"):
+    uploaded_file = st.file_uploader("Upload an MRI Image", type=["jpg", "png", "jpeg"], key="brain")
+    
+    if st.button("Analyze Brain Tumor", key="brain_predict"):
         if uploaded_file:
             with st.spinner("Running Brain Tumor Model..."):
-                image = Image.open(uploaded_file)
-                predicted_class, predictions = predict_image(brain_tumor_model, image, brain_tumor_categories)
+                image = Image.open(uploaded_file).convert("RGB")
+                predicted_class, predictions = predict_brain_tumor_image(brain_tumor_model, image, brain_tumor_categories)
                 st.write(f"**Predicted Class**: {predicted_class}")
-                st.write("**Prediction Probabilities:**")
-                fig, ax = plt.subplots()
-                sns.barplot(x=list(predictions.keys()), y=list(predictions.values()), ax=ax)
-                ax.set_title("Brain Tumor Prediction Probabilities")
-                ax.set_xticklabels(ax.get_xticklabels(), rotation=45)
-                st.pyplot(fig)
+                #st.write("**Prediction Probabilities:**")
+                
+                
         else:
             st.warning("Please upload an image for analysis.")
 
-# Pneumonia Prediction
+# Pneumonia Prediction Page
 def pneumonia_page():
     st.header("Pneumonia Prediction")
-    uploaded_file = st.file_uploader("Upload a Chest X-ray Image", type=["jpg", "png", "jpeg"])
-    if st.button("Analyze Pneumonia"):
+    uploaded_file = st.file_uploader("Upload a Chest X-ray Image", type=["jpg", "png", "jpeg"], key="pneumonia")
+    
+    if st.button("Analyze Pneumonia", key="pneumonia_predict"):
         if uploaded_file:
             with st.spinner("Running Pneumonia Model..."):
-                image = Image.open(uploaded_file)
-                predicted_class, predictions = predict_image(pneumonia_model, image, pneumonia_categories)
+                image = Image.open(uploaded_file).convert("RGB")
+                predicted_class, predictions = predict_pneumonia_image(pneumonia_model, image, pneumonia_categories)
                 st.write(f"**Predicted Class**: {predicted_class}")
-                st.write("**Prediction Probabilities:**")
-                fig, ax = plt.subplots()
-                sns.barplot(x=list(predictions.keys()), y=list(predictions.values()), ax=ax)
-                ax.set_title("Pneumonia Prediction Probabilities")
-                ax.set_xticklabels(ax.get_xticklabels(), rotation=45)
-                st.pyplot(fig)
+                #st.write("**Prediction Probabilities:**")
+                
+                
         else:
             st.warning("Please upload an image for analysis.")
 
