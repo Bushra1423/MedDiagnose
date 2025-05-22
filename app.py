@@ -53,7 +53,7 @@ pneumonia_categories = ["Normal", "Pneumonia"]
 from tensorflow.keras.models import load_model
 
 # Load actual models
-skin_cancer_model = load_model("skincancer.model.h5")
+skin_cancer_model = load_model("skin_cancer_model.h5")
 brain_tumor_model = load_model("brain_tumor_detection_model.h5")
 pneumonia_model = load_model("pneumonia_detection_model.h5")
 
