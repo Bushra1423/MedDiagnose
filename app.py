@@ -72,10 +72,7 @@ def predict_skin_cancer_image(model, image, categories):
 
     prediction = model.predict(image_array)
     predicted_class = categories[np.argmax(prediction)]
-
-    return predicted_class
-
-
+    return predicted_class, prediction[0]
     
 
 # Helper function for Brain Tumor predictions (150x150)
