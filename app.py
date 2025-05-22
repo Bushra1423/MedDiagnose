@@ -60,19 +60,21 @@ pneumonia_model = load_model("pneumonia_detection_model.h5")
 
 # Helper function for Skin Cancer predictions (224x224)
 def predict_skin_cancer_image(model, image, categories):
-    input_shape = model.input_shape[1:3]  # Automatically get expected (height, width)
+    # Use default fallback if input_shape contains None
+    input_shape = model.input_shape[1:3]
+    if None in input_shape:
+        input_shape = (224, 224)  # Set your default expected input size
+
     image = image.resize(input_shape)
     image = image.convert("RGB")
-
     image_array = np.array(image) / 255.0
     image_array = np.expand_dims(image_array, axis=0)
 
-    st.write("Processed image shape:", image_array.shape)
+    prediction = model.predict(image_array)
+    predicted_class = categories[np.argmax(prediction)]
 
-    predictions = model.predict(image_array)[0]
-    predicted_class = categories[np.argmax(predictions)]
-    prediction_dict = dict(zip(categories, predictions))
-    return predicted_class, prediction_dict
+    return predicted_class
+
 
     
 
