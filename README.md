@@ -14,6 +14,10 @@ With MedDiagnose, you can:
 
 We aim to empower individuals with technology that assists in the early detection of health conditions, ensuring that users can take timely action and seek professional advice.
 
+
+<img width="1294" height="524" alt="image" src="https://github.com/user-attachments/assets/30bfa41a-d429-49c8-b828-46f35175d9f6" />
+
+
 ---
 
 ### **Integrated AI Models**
@@ -27,7 +31,16 @@ Our AI model uses **MRI images** to predict different types of brain tumors. The
 
 The model leverages **convolutional neural networks (CNN)** to analyze the features of MRI scans, providing highly accurate predictions based on pre-trained data.
 
-*Graphics suggestion*: Include a simple flowchart or animation showing how the MRI images are processed by the model to identify the tumor type.
+
+<img width="376" height="277" alt="image" src="https://github.com/user-attachments/assets/2dc8dd3d-4f99-4a85-9f77-59dca8dcddd6" />
+
+
+<img width="368" height="316" alt="image" src="https://github.com/user-attachments/assets/6be47059-0373-45bb-a220-011648cb9f3d" />   
+
+
+<img width="764" height="304" alt="image" src="https://github.com/user-attachments/assets/45d4b28c-ae1a-4905-858a-2b472931adf8" />
+
+
 
 #### **2. Pneumonia Detection Model**
 This AI model analyzes **chest X-ray images** to detect signs of pneumonia. The model categorizes the image as either:
@@ -36,7 +49,15 @@ This AI model analyzes **chest X-ray images** to detect signs of pneumonia. The 
 
 Using **data augmentation techniques** and **CNN layers**, the model is trained to identify pneumonia at an early stage, offering crucial insights for timely medical intervention.
 
-*Graphics suggestion*: A visual comparison of a healthy lung X-ray and a pneumonia-affected X-ray, with annotations highlighting the differences.
+<img width="413" height="368" alt="image" src="https://github.com/user-attachments/assets/14656db3-81a5-420c-afea-637c2695a721" />
+
+
+<img width="625" height="260" alt="image" src="https://github.com/user-attachments/assets/d32f362a-cc07-426a-ad87-873315f0f050" />
+
+
+<img width="613" height="193" alt="image" src="https://github.com/user-attachments/assets/54cda49e-e16c-4c34-ae72-92890213ea04" />
+
+
 
 #### **3. Skin Cancer Detection Model**
 Our skin cancer detection model analyzes skin images to identify different types of skin cancer. It categorizes skin lesions as:
@@ -49,7 +70,12 @@ Our skin cancer detection model analyzes skin images to identify different types
 
 This model also uses **CNNs** for pattern recognition, trained on a large dataset of skin images to provide accurate results.
 
-*Graphics suggestion*: Display a carousel of skin images showing examples of each category, with brief descriptions of each type of skin cancer.
+<img width="300" height="290" alt="image" src="https://github.com/user-attachments/assets/098326a5-4aab-4aa2-9b9e-ca3c266df3e0" />
+
+
+<img width="720" height="248" alt="image" src="https://github.com/user-attachments/assets/0080e6c3-a04f-488c-bcd1-e2d50328b0db" />
+
+
 
 ---
 
@@ -62,7 +88,8 @@ The **Google Gemini chatbot** integrated into the app serves as your personal me
 
 The chatbot uses **natural language processing** (NLP) to understand and respond to text-based input and can assist in predicting potential health issues based on the symptoms provided.
 
-*Graphics suggestion*: A chatbot interface with chat bubbles and icons to represent different medical topics (e.g., symptom checker, disease prediction, medical advice). You could also add a button that shows the chatbot's activity, like "Analyzing symptoms..." for added interactivity.
+<img width="687" height="215" alt="image" src="https://github.com/user-attachments/assets/a2057cfc-887e-419a-a6d2-318999e5790f" />
+
 
 ---
 
@@ -70,12 +97,9 @@ The chatbot uses **natural language processing** (NLP) to understand and respond
 
 To enhance the experience, the app provides a **graphical interface** that allows users to:
 - **Upload images** directly from their device.
-- **Interact with the chatbot** via text input or voice commands.
-- **View predictions** with a graphical representation of the model's confidence level.
+- **Interact with the chatbot** via text input commands.
 
-*Graphics suggestion*: Include progress bars and visual indicators (e.g., a loading circle when the model is processing the image) to give users real-time feedback while waiting for the results.
 
----
 
 ### **How It Works**
 
@@ -87,5 +111,9 @@ To enhance the experience, the app provides a **graphical interface** that allow
 
 3. **Step 3: Receive Diagnosis**
    - Get your diagnosis from the AI models with clear explanations and suggestions for next steps.
+
+
+<img width="1000" height="413" alt="image" src="https://github.com/user-attachments/assets/c3aa91e4-0325-4d2a-9c23-c6683b3246ff" />
+
 
 
